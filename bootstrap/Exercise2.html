@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row-md-12">
+        <h1 class="font-weight-light">Prenumeration på e-tidning</h1>
+    </div>
+    <form class="form" action="#">
+        <div class="row ">
+            <div class="col border border-info rounded p-1 m-2">
+                <p class="bg-info text-center text-light rounded">Tidningsdata</p>
+                <div class="mb-1">
+                    <label for="Tidning">Tidning:</label>
+                    <select id="Tidning" class="form-control">
+                        <option class="dropdown-item">Österbottens tidning</option>
+                        <option class="dropdown-item">Tidning 2</option>
+                        <option class="dropdown-item">Tidning 3</option>
+                    </select>
+                </div>
+                <p class="bg-info text-center text-light rounded">Månadspris:50</p>
+                <div class="mb-1">
+                    <label for="subscription-time">Prenumerationstid:</label>
+                    <input type="number" id="subscription-time" class="form-control text-right" placeholder="3" min="1"
+                           max="12">
+                </div>
+                <p class="bg-info text-center text-light rounded">Totalpris:150</p>
+            </div>
+            <div class="col m-2">
+                <div class="border border-info rounded p-1">
+                    <p class="bg-info text-center text-light rounded">Kunddata</p>
+                    <div>
+                        <label for="Name">Namn:</label>
+                        <input type="text" id="Name" class="form-control" placeholder="Nalle Puh">
+                    </div>
+                    <div>
+                        <label for="Email">Email:</label>
+                        <input type="text" id="Email" class="form-control" placeholder="nalle@sjumila.com">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-md-12">
+            <div class="text-right m-2">
+                <input type="button" class="btn form-submit bg-info text-light rounded" value="Spara">
+            </div>
+        </div>
+    </form>
+    <div class="row-md-12 p-1 m-2">
+        <table class="table table-info mt-4">
+            <thead class="thead bg-info text-light font-weight-bold">
+            <tr>
+                <th>Tidning</th>
+                <th>Prenumerationstid</th>
+                <th>Pris</th>
+                <th>Kundens namn</th>
+                <th>Kundens epost</th>
+                <th>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="bg-light">
+            <tr>
+                <td>Vasabladet</td>
+                <td>1 mån</td>
+                <td>55 €</td>
+                <td>Kalle Anka</td>
+                <td>kalle.anka@hotmail.com</td>
+                <td>
+                    <input type="button" class="btn btn-info text-white px-2" value="Radera">
+                </td>
+            </tr>
+            <tr>
+                <td>Huvudstadsbladet</td>
+                <td>2 mån</td>
+                <td>120 €</td>
+                <td>Kalle Anka</td>
+                <td>kalle.anka@hotmail.com</td>
+                <td>
+                    <input type="button" class="btn bg-info text-white px-2" value="Radera">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
