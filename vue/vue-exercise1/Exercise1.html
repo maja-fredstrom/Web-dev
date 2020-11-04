@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grunder i Vue</title>
+</head>
+<body>
+<div id="app">
+    <h1>Registering av viktmätningar</h1>
+    <form action="#">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" v-model="name">
+        </div>
+        <div>
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight" v-model="weight">
+        </div>
+        <div>
+            <label for="height">Height:</label>
+            <input type="number" id="height" v-model="height">
+        </div>
+        <p id="message">BMI = {{bmi}}, BMI Type = {{BmiType}}</p>
+        <input type="button" value="Save person" @click="savePerson">
+    </form>
+    <ul v-for=" p in persons">
+        <li>{{p}}</li>
+    </ul>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            name: "",
+            height: 0,
+            weight: 0,
+            persons: [],
+        },
+        methods: {
+            savePerson: function () {
+                this.persons.push(`${this.name}: ${this.bmi} --> ${this.BmiType}`)
+            },
+        },
+        computed: {
+            bmi: function () {
+                if (this.weight && this.height) {
+                    let height = this.height;
+                    if (this.height > 20) {
+                        height = height / 100;
+                    }
+                    return (this.weight / (Math.pow(height, 2))).toFixed(2);
+                } else {
+                    return 0;
+                }
+            },
+            BmiType: function () {
+                if (this.bmi === 0) {
+                    return 'Ange data';
+                } else if (this.bmi < 20) {
+                    return "Under weight";
+                } else if (this.bmi < 28) {
+                    return "Normal weight";
+                } else {
+                    return "Over weight";
+                }
+            }
+        }
+    });
+</script>
+</html>
