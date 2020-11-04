@@ -72,40 +72,20 @@
             </div>
         </form>
         <div class="row p-1 m-2">
-            <table class="table table-info mt-4">
-                <thead class="thead bg-info text-light font-weight-bold">
-                <tr>
-                    <th>Tidning</th>
-                    <th>Prenumerationstid</th>
-                    <th>Pris</th>
-                    <th>Kundens namn</th>
-                    <th>Kundens epost</th>
-                    <th>
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="bg-light" v-for="s in subscriptions">
-                <tr>
-                    <td>{{s.newspaper.name}}</td>
-                    <td>{{s.duration}}</td>
-                    <td>{{s.totalPrice}}</td>
-                    <td>{{s.name}}</td>
-                    <td>{{s.email}}</td>
-                    <td>
-                        <input type="button" class="btn btn-info text-white px-2" value="Radera"
-                               @click="unsubscribe(s)">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <subscription_table_component :subscriptions="subscriptions" @unsubscribe="unsubscribe"></subscription_table_component>
         </div>
     </div>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="SubscriptionTableComponent.js"></script>
 <script>
     var vm = new Vue({
         el: '#app',
+        components : {
+            subscription_table_component,
+
+        },
         data: {
             warning: "",
             newSubscription: {
@@ -128,10 +108,6 @@
                     monthlyPrice: 60,
                 }
             ],
-            selected: {
-                name: "",
-                monthlyPrice: 0,
-            },
             subscriptions: [{
                 newspaper: {
                     name: "Vasabladet",
