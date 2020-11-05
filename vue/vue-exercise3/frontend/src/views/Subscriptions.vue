@@ -8,6 +8,7 @@
 <script>
 // @ is an alias to /src
 import Subscription from "@/components/SubscriptionComponent";
+import SubscriptionsService from "@/SubscriptionsService";
 
 export default {
   name: 'Home',
@@ -15,16 +16,7 @@ export default {
     Subscription
   },
   async created() {
-    this.subscriptions = [{
-      newspaper: {
-        name: "Vasabladet",
-        monthlyPrice: 55,
-      },
-      duration: 2,
-      totalPrice: 110,
-      name: "Kalle Anka",
-      email: "kalle.anka@hotmail.com",
-    }];
+    this.subscriptions = SubscriptionsService.getSubscriptions();
   },
   methods: {
     unsubscribe: function (selected) {

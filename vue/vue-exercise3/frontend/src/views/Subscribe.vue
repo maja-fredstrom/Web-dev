@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Subscribe :subscriptions="this.subscriptions" :newspapers="this.newspapers"
+    <Subscribe :subscriptions="subscriptions" :newspapers="newspapers"
                @subscribe="subscribe"/>
   </div>
 </template>
@@ -8,33 +8,23 @@
 <script>
 // @ is an alias to /src
 import Subscribe from "@/components/SubscribeComponent";
+import NewspapersService from "@/NewspapersService";
+import SubscriptionsService from "@/SubscriptionsService";
 
 export default {
   name: 'Home',
-  subscriptions: [],
-  newspapers: [],
+  data: function () {
+    return {
+      subscriptions: [],
+      newspapers: [],
+    };
+  },
   components: {
     Subscribe,
   },
   async created() {
-    this.subscriptions = [{
-      newspaper: {
-        name: "Vasabladet",
-        monthlyPrice: 55,
-      },
-      duration: 2,
-      totalPrice: 110,
-      name: "Kalle Anka",
-      email: "kalle.anka@hotmail.com",
-    }];
-    this.newspapers = [{
-      name: "Vasabladet",
-      monthlyPrice: 55,
-    },
-      {
-        name: "Huvudstadsbladet",
-        monthlyPrice: 60,
-      }];
+    this.subscriptions = await SubscriptionsService.getSubscriptions();
+    this.newspapers = await NewspapersService.getNewspapers();
   },
   methods: {
     subscribe: function (subscriptions) {

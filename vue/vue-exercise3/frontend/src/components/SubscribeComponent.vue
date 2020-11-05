@@ -6,7 +6,7 @@
         <div class="mb-1">
           <label for="Tidning">Tidning:</label>
           <select id="Tidning" class="form-control" v-model="newSubscription.newspaper">
-            <option class="dropdown-item" v-for="n in newspapers" v-bind:value="n" v-bind:key="n">{{ n.name }}</option>
+            <option class="dropdown-item" v-for="(n,index) in newspapers" v-bind:value="n" v-bind:key="index">{{ n.name }}</option>
           </select>
         </div>
         <p class="bg-info text-center text-light rounded">Monthly price :

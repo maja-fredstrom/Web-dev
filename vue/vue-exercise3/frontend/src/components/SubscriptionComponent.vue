@@ -11,7 +11,7 @@
       </th>
     </tr>
     </thead>
-    <tbody class="bg-light" v-for="s in subscriptions" v-bind:key="s">
+    <tbody class="bg-light" v-for="(s,index) in subscriptions" v-bind:key="index">
     <tr>
       <td>{{ s.newspaper.name }}</td>
       <td>{{ s.duration }}</td>
