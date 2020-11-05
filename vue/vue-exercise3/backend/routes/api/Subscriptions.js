@@ -1,25 +1,26 @@
 const express = require('express');
+const mongodb = require('mongodb');
 const router = express.Router();
 
-subscriptions = [{
-    newspaper: {
-        name: "Vasabladet",
-        monthlyPrice: 55,
-    },
-    duration: 2,
-    totalPrice: 110,
-    name: "Kalle Anka",
-    email: "kalle.anka@hotmail.com",
-}];
 //Get stations
-router.get('/', (req, res) => {
-    res.send(subscriptions);
+router.get('/', async (req, res) => {
+    const subscriptions = await loadSubscriptionsCollection();
+    res.send(await subscriptions.find({}).toArray());
 });
 
 router.post('/', async (req, res) => {
-    subscriptions.push(req.body);
+    const subscriptions = await loadSubscriptionsCollection();
+    await subscriptions.insertOne(req.body);
     res.status(201).send();
 });
 
+async function loadSubscriptionsCollection() {
+    const client = await mongodb.MongoClient.connect('mongodb://localhost:27017/TemperatureDb',
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+    return client.db('NewsSubscriptionDb').collection('subscription');
+}
 
 module.exports = router;
