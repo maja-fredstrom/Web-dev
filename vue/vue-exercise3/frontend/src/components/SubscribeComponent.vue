@@ -48,6 +48,7 @@
 </template>
 
 <script>
+
 export default {
   name: "SubscribeComponent",
   data: function () {
@@ -70,7 +71,7 @@ export default {
       if (this.newSubscription.newspaper && this.newSubscription.duration && this.newSubscription.email && this.newSubscription.name) {
         this.warning = '';
         this.subscriptions.push(this.newSubscription);
-        this.$emit('subscribe', this.subscriptions);
+        this.$emit('subscribe', this.newSubscription);
       } else {
         this.warning = "Enter all the data first!";
       }

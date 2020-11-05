@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="se">
+<head>
+    <meta charset="UTF-8">
+    <title>Omtentamen Maja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <div class="row">
+            <h1>Korrigering av bedömningar</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>Kurs: Stickning</p>
+            </div>
+            <div class="col">
+                <label for="maxPoint">Maxmimipoäng:</label>
+                <input id="maxPoint" type="number" v-model="maxPoint">
+            </div>
+        </div>
+        <div class="row">
+            <table class="table mt-4">
+                <thead class="thead bg-dark text-light font-weight-bold">
+                <tr>
+                    <th>studerande</th>
+                    <th>poäng</th>
+                    <th>vitsord</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody class="bg-light text-dark" v-for="s in students">
+                <tr :class=" s.point> maxPoint || s.point<0 ? 'bg-danger' : ''">
+                    <td>{{s.name}}</td>
+                    <td><input type="number" v-model="s.point"></td>
+                    <td>
+                        <grade_component :point="parseInt(s.point)" :max_point="maxPoint"
+                                         v-model="s.grade"></grade_component>
+                    </td>
+                    <td>
+                        <input type="button" class="btn btn-dark text-white px-2" value="Radera"
+                               @click="deletePoint(s)">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row font-weight-bold">
+            <p>Medelvitsord : {{average}}</p>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="GradeComponent.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            grade_component,
+        },
+        data: {
+            maxPoint: 30,
+            students: [
+                {
+                    name: "Kalle Anka",
+                    point: 15,
+                },
+                {
+                    name: "Kajsa Anka",
+                    point: 20,
+                },
+                {
+                    name: "Nalle Puh",
+                    point: 9,
+                },
+                {
+                    name: "Ior Åsna",
+                    point: 5,
+                },
+                {
+                    name: "Peter Pan",
+                    point: 14,
+                }
+            ],
+        },
+        methods: {
+            deletePoint: function (student) {
+                const index = this.students.indexOf(student);
+                if (index > -1) {
+                    this.students.splice(index, 1);
+                }
+            },
+            setGrade: function (p) {
+                let grade = (7.5 / this.maxPoint * p - 1.5);
+                if (grade < 0) {
+                    return 0;
+                } else if (grade > 5) {
+                    return 5;
+                } else {
+                    return grade.toFixed(2);
+                }
+            },
+        },
+        computed: {
+            average: function () {
+                let grades = this.students.map(student => this.setGrade(student.point));
+                let sumGrades = grades.reduce(function (a, b) {
+                    return parseInt(a) + parseInt(b);
+                }, 0);
+                return (sumGrades / this.students.length).toFixed(2);
+            }
+        }
+    });
+</script>
+</html>

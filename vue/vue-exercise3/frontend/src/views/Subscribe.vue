@@ -27,8 +27,9 @@ export default {
     this.newspapers = await NewspapersService.getNewspapers();
   },
   methods: {
-    subscribe: function (subscriptions) {
-      this.subscriptions = subscriptions;
+    subscribe: function (newSubscription) {
+      this.subscriptions.push(newSubscription);
+      SubscriptionsService.insertSubscription(newSubscription);
     },
   },
 }

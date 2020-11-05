@@ -7,6 +7,9 @@ class SubscriptionsService {
         let res = await axios.get(url);
         return res.data;
     }
+    static async insertSubscription(newSubscription) {
+        return axios.post(url, newSubscription);
+    }
 }
 
 export default SubscriptionsService;

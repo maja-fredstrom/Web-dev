@@ -12,11 +12,16 @@ import SubscriptionsService from "@/SubscriptionsService";
 
 export default {
   name: 'Home',
+  data: function () {
+    return {
+      subscriptions: SubscriptionsService.getSubscriptions(),
+    };
+  },
   components: {
     Subscription
   },
   async created() {
-    this.subscriptions = SubscriptionsService.getSubscriptions();
+    this.subscriptions = await SubscriptionsService.getSubscriptions();
   },
   methods: {
     unsubscribe: function (selected) {
